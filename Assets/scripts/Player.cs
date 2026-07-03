@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [Header("Movement")]
+    public int health = 100;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
@@ -11,34 +13,52 @@ public class Player : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
+
     private Rigidbody2D rb;
     private bool isGrounded;
 
-    // Gebruik Animator in plaats van de oude Animation component
     private Animator animator;
+
+    private SpriteRenderer spriteRenderer;
+    public int extraJumpsValue = 1;
+    private int extraJumps;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent <SpriteRenderer>();
+
+        extraJumps = extraJumpsValue;
     }
 
     void Update()
     {
-        // Beweging
+
         float moveInput = Input.GetAxisRaw("Horizontal");
 
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        // Springen
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isGrounded )
         {
+            extraJumps = extraJumpsValue;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(isGrounded)
+            {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            }
+            else if(extraJumps > 0)
+            {
+
+            }
         }
 
         SetAnimation(moveInput);
 
-        // Sprite draaien
+    
         if (moveInput > 0)
             transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < 0)
@@ -75,12 +95,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Laat de ground check zien in de editor
+
     private void OnDrawGizmosSelected()
     {
         if (groundCheck == null) return;
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Damage")
+        {
+            health -= 25;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            StartCoroutine(BlinkRed());
+
+            if(health <= 0)
+            {
+                Die();
+            }
+        }
+    }
+
+    private IEnumerator BlinkRed()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = Color.white;
+
+    }
+
+    private void Die()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 }
