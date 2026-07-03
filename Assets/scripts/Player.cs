@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent <SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         extraJumps = extraJumpsValue;
     }
@@ -39,18 +39,18 @@ public class Player : MonoBehaviour
 
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        if (isGrounded )
+        if (isGrounded)
         {
             extraJumps = extraJumpsValue;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(isGrounded)
+            if (isGrounded)
             {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
-            else if(extraJumps > 0)
+            else if (extraJumps > 0)
             {
 
             }
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
         SetAnimation(moveInput);
 
-    
+
         if (moveInput > 0)
             transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < 0)
@@ -112,11 +112,12 @@ public class Player : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             StartCoroutine(BlinkRed());
 
-            if(health <= 0)
+            if (health <= 0)
             {
                 Die();
             }
         }
+
     }
 
     private IEnumerator BlinkRed()
@@ -132,3 +133,4 @@ public class Player : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 }
+
