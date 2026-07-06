@@ -5,32 +5,40 @@ public class Enemy : MonoBehaviour
     public float speed = 2f;
     public Transform[] points;
 
-    private int currentPoint;
+    private int currentPoint = 0;
+    private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (points.Length == 0)
+        if (points.Length < 2)
         {
             enabled = false;
             return;
         }
+
+        rb.position = points[0].position;
+        currentPoint = 1;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        Transform target = points[currentPoint];
+        Vector2 newPos = Vector2.MoveTowards(
+            rb.position,
+            points[currentPoint].position,
+            speed * Time.fixedDeltaTime);
 
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            target.position,
-            speed * Time.deltaTime);
+        rb.MovePosition(newPos);
 
-        spriteRenderer.flipX = target.position.x < transform.position.x;
+        spriteRenderer.flipX = newPos.x > points[currentPoint].position.x;
 
-        if (Vector2.Distance(transform.position, target.position) < 0.05f)
+        if (Vector2.Distance(rb.position, points[currentPoint].position) < 0.1f)
         {
             currentPoint = (currentPoint + 1) % points.Length;
         }
