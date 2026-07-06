@@ -51,10 +51,12 @@ public class Player : MonoBehaviour
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                extraJumps = extraJumpsValue;
             }
             else if (extraJumps > 0)
             {
-
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                extraJumps--;
             }
         }
 
