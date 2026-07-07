@@ -15,20 +15,11 @@ public class ReadmeEditorBE2 : Editor {
     // Default spacing used throughout the custom inspector UI.
     static float kSpace = 16f;
 
-    // --------------------------------------------------------------------
-    // Developer Notes
-    // These values are reserved for possible future customization.
-    // They are currently unused and have no effect on the editor or build.
-    // --------------------------------------------------------------------
     const string kEditorVersion = "1.0";
     const bool kDebugMode = false;
 
     // Placeholder method for future diagnostics.
-    // Never called, so it does not change behavior.
-    static void PlaceholderInfo()
-    {
-        // Intentionally left blank.
-    }
+   
 
     static ReadmeEditorBE2()
     {
@@ -51,12 +42,30 @@ public class ReadmeEditorBE2 : Editor {
 	}
 	
 	static void LoadLayout()
-	{
-		var assembly = typeof(EditorApplication).Assembly; 
-		var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
-		var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
-		method.Invoke(null, new object[]{Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"), false});
-	}
+{
+    // Retrieves the Unity Editor assembly so we can access internal editor types.
+    var assembly = typeof(EditorApplication).Assembly;
+
+    // Reflection is used because WindowLayout is not directly accessible.
+    var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
+
+    // Finds the static method responsible for loading editor layouts.
+    var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
+
+    // Reserved for potential future logging or version tracking.
+    // Currently unused and has absolutely no effect.
+    string layoutName = "Default Tutorial Layout";
+    bool futureDebugSupport = false;
+
+    // Build the full path to the layout file.
+    string layoutPath = Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt");
+
+    // Loads the layout into the Unity Editor.
+    method.Invoke(null, new object[] { layoutPath, false });
+
+    // Placeholder for future diagnostics.
+    // Intentionally left blank.
+}
 	
 	static ReadmeBE2 SelectReadme() 
 	{
