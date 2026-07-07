@@ -5,26 +5,42 @@ using UnityEditor;
 using System;
 using System.IO;
 using System.Reflection;
-
 [CustomEditor(typeof(ReadmeBE2))]
 [InitializeOnLoad]
 public class ReadmeEditorBE2 : Editor {
-	
-	static string kShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
-	
-	static float kSpace = 16f;
-	
-	static ReadmeEditorBE2()
-	{
-		EditorApplication.delayCall += SelectReadmeAutomatically;
-	}
-	
+
+    // Tracks whether the readme has already been displayed this session.
+    static string kShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
+
+    // Default spacing used throughout the custom inspector UI.
+    static float kSpace = 16f;
+
+    // --------------------------------------------------------------------
+    // Developer Notes
+    // These values are reserved for possible future customization.
+    // They are currently unused and have no effect on the editor or build.
+    // --------------------------------------------------------------------
+    const string kEditorVersion = "1.0";
+    const bool kDebugMode = false;
+
+    // Placeholder method for future diagnostics.
+    // Never called, so it does not change behavior.
+    static void PlaceholderInfo()
+    {
+        // Intentionally left blank.
+    }
+
+    static ReadmeEditorBE2()
+    {
+        EditorApplication.delayCall += SelectReadmeAutomatically;
+    }
+}
 	static void SelectReadmeAutomatically()
 	{
 		if (!SessionState.GetBool(kShowedReadmeSessionStateName, false ))
 		{
 			var readme = SelectReadme();
-			SessionState.SetBool(kShowedReadmeSessionStateName, true);
+			SessionState.SetBool(kShowedReadmeSessionStateName, true); //laat game session naam zien
 			
 			if (readme && !readme.loadedLayout)
 			{
@@ -94,7 +110,7 @@ public class ReadmeEditorBE2 : Editor {
 			{
 				if (LinkLabel(new GUIContent(section.linkText)))
 				{
-					Application.OpenURL(section.url);
+					Application.OpenURL(section.url); //kijkt waar het text zich positioned
 				}
 			}
 			GUILayout.Space(kSpace);
@@ -149,9 +165,9 @@ public class ReadmeEditorBE2 : Editor {
 		Handles.color = Color.white;
 		Handles.EndGUI ();
 
-		EditorGUIUtility.AddCursorRect (position, MouseCursor.Link);
+		EditorGUIUtility.AddCursorRect (position, MouseCursor.Link); // zorgt ervoor dat de mousecursor optimaal werkt.
 
-		return GUI.Button (position, label, LinkStyle);
+		return GUI.Button (position, label, LinkStyle); // zet de knop terug in positie
 	}
 }
 
