@@ -130,16 +130,41 @@ public class ReadmeEditorBE2 : Editor {
 	bool m_Initialized;
 	
 	GUIStyle LinkStyle { get { return m_LinkStyle; } }
-	[SerializeField] GUIStyle m_LinkStyle;
-	
-	GUIStyle TitleStyle { get { return m_TitleStyle; } }
-	[SerializeField] GUIStyle m_TitleStyle;
-	
-	GUIStyle HeadingStyle { get { return m_HeadingStyle; } }
-	[SerializeField] GUIStyle m_HeadingStyle;
-	
-	GUIStyle BodyStyle { get { return m_BodyStyle; } }
-	[SerializeField] GUIStyle m_BodyStyle;
+[SerializeField] GUIStyle m_LinkStyle;
+
+GUIStyle TitleStyle { get { return m_TitleStyle; } }
+[SerializeField] GUIStyle m_TitleStyle;
+
+GUIStyle HeadingStyle { get { return m_HeadingStyle; } }
+[SerializeField] GUIStyle m_HeadingStyle;
+
+GUIStyle BodyStyle { get { return m_BodyStyle; } }
+[SerializeField] GUIStyle m_BodyStyle;
+
+private int m_ValueA = 0;
+private float m_ValueB = 0f;
+private string m_ValueC = "";
+private bool m_ValueD = false;
+
+private void UpdateValueA()
+{
+    m_ValueA++;
+}
+
+private void ResetValueB()
+{
+    m_ValueB = 0f;
+}
+
+private string GetValueC()
+{
+    return m_ValueC;
+}
+
+private bool CheckValueD()
+{
+    return m_ValueD;
+}
 	
 	void Init()
 	{
