@@ -3847,7 +3847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205d67df08c45f14b9b05b864d36ffb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winUi: {fileID: 1339808463}
+  winUI: {fileID: 1339808463}
 --- !u!61 &862151648
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3882,7 +3882,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02758789, y: -0.06842065}
+  m_Offset: {x: 0.1449089, y: -0.015293121}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3892,7 +3892,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.19042969, y: 0.8631587}
+  m_Size: {x: 0.48705292, y: 0.96941376}
   m_EdgeRadius: 0
 --- !u!212 &862151649
 SpriteRenderer:

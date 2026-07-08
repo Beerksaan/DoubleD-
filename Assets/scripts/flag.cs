@@ -1,15 +1,19 @@
 using UnityEngine;
 
-public class flag : MonoBehaviour
+public class Flag : MonoBehaviour
 {
-    public GameObject winUi;
+    public GameObject winUI;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        Debug.Log("Something entered the flag: " + collision.name);
+
+        if (collision.CompareTag("Player"))
         {
-            Time.timeScale = 0;
-            winUi.SetActive(true);
+            Debug.Log("Player reached the flag!");
+
+            Time.timeScale = 0f;
+            winUI.SetActive(true);
         }
     }
 }
